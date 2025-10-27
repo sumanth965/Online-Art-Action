@@ -54,7 +54,10 @@ export default function ArtAuctionPlatform() {
 
   // Artwork Management
   const handleAddArtwork = () => {
-    if (newArtwork.title && newArtwork.category && newArtwork.basePrice) {
+    if (newArtwork.title && newArtwork.category && newArtwork.basePrice && newArtwork.image) {
+      // Create a preview URL for the uploaded image
+      const imageURL = URL.createObjectURL(newArtwork.image);
+
       const artwork = {
         id: artworks.length + 1,
         ...newArtwork,
@@ -63,12 +66,17 @@ export default function ArtAuctionPlatform() {
         bids: 0,
         timeLeft: '7d',
         status: 'pending',
-        image: '🎨',
-        artistId: 'current-artist'
+        image: imageURL, // ✅ use actual uploaded image URL
+        artistId: 'current-artist',
       };
+
       setUserArtworks([...userArtworks, artwork]);
-      setNewArtwork({ title: '', category: '', basePrice: '', description: '' });
+
+      // Reset form fields after upload
+      setNewArtwork({ image: '', title: '', category: '', basePrice: '', description: '' });
       alert('Artwork added successfully!');
+    } else {
+      alert('Please fill in all fields including image!');
     }
   };
 
@@ -449,6 +457,7 @@ export default function ArtAuctionPlatform() {
         {/* Upload Form */}
         <div className="bg-gray-800 p-8 rounded-2xl border border-gray-700 mb-8">
           <h2 className="text-2xl font-bold mb-6">Upload New Artwork</h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <input
               type="text"
@@ -457,6 +466,7 @@ export default function ArtAuctionPlatform() {
               onChange={(e) => setNewArtwork({ ...newArtwork, title: e.target.value })}
               className="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-amber-500"
             />
+
             <select
               value={newArtwork.category}
               onChange={(e) => setNewArtwork({ ...newArtwork, category: e.target.value })}
@@ -468,6 +478,7 @@ export default function ArtAuctionPlatform() {
               <option value="Digital">Digital</option>
               <option value="Portrait">Portrait</option>
             </select>
+
             <input
               type="number"
               placeholder="Base Price (₹)"
@@ -475,7 +486,16 @@ export default function ArtAuctionPlatform() {
               onChange={(e) => setNewArtwork({ ...newArtwork, basePrice: e.target.value })}
               className="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-amber-500"
             />
+
+            {/* ✅ New Image Upload Field */}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setNewArtwork({ ...newArtwork, image: e.target.files[0] })}
+              className="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-amber-500 file:text-gray-900 hover:file:bg-amber-600 focus:outline-none focus:border-amber-500"
+            />
           </div>
+
           <textarea
             placeholder="Artwork Description"
             value={newArtwork.description}
@@ -483,10 +503,15 @@ export default function ArtAuctionPlatform() {
             className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-amber-500 mb-4 resize-none"
             rows="4"
           />
-          <button onClick={handleAddArtwork} className="px-6 py-2 bg-amber-500 text-gray-900 rounded-lg font-bold hover:bg-amber-600 transition-colors flex items-center gap-2">
+
+          <button
+            onClick={handleAddArtwork}
+            className="px-6 py-2 bg-amber-500 text-gray-900 rounded-lg font-bold hover:bg-amber-600 transition-colors flex items-center gap-2"
+          >
             <Plus size={18} /> Upload Artwork
           </button>
         </div>
+
 
         {/* Your Artworks */}
         <div>
@@ -495,8 +520,14 @@ export default function ArtAuctionPlatform() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {userArtworks.map((art) => (
                 <div key={art.id} className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700 hover:border-amber-500/50 transition-all">
-                  <div className="text-6xl mb-4 text-center">{art.image}</div>
-                  <h3 className="text-xl font-bold mb-2">{art.title}</h3>
+                  {art.image && (
+                    <img
+                      src={art.image}
+                      alt={art.title}
+                      className="w-full h-60 object-cover rounded-xl mb-4 border border-gray-700"
+                    />
+                  )}
+                  <h3 className="text-xl font-bold mb-2 text-white">{art.title}</h3>
                   <p className="text-gray-400 text-sm mb-2">Category: {art.category}</p>
                   <p className="text-gray-400 text-sm mb-4">Base Price: ₹{art.basePrice.toLocaleString()}</p>
                   <p className="text-amber-400 font-semibold mb-4">Status: {art.status}</p>
@@ -509,6 +540,7 @@ export default function ArtAuctionPlatform() {
                     </button>
                   </div>
                 </div>
+
               ))}
             </div>
           ) : (
