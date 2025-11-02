@@ -144,7 +144,7 @@ const ArtistDashboard = () => {
 
         {/* Your Artworks */}
         <div>
-          <h2 className="text-2xl font-bold mb-6">Your Artworks</h2>
+          <h2 className="text-2xl font-bold mb-6">Uploaded Artworks</h2>
           {userArtworks.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {userArtworks.map((art) => (
