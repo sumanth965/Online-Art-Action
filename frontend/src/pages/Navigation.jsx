@@ -18,13 +18,13 @@ const Navigation = ({
   mobileMenuOpen,
   setMobileMenuOpen,
 }) => {
-  const navigate = useNavigate(); // ✅ for programmatic navigation (like logout)
+  const navigate = useNavigate(); // ✅ for redirect after logout
 
   return (
     <nav className="sticky top-0 z-50 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-b border-amber-500/20 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Brand */}
+          {/* ✅ Brand */}
           <Link
             to="/"
             className="flex items-center space-x-2 cursor-pointer"
@@ -36,7 +36,7 @@ const Navigation = ({
             </span>
           </Link>
 
-          {/* Mobile Menu Button */}
+          {/* ✅ Mobile Menu Button */}
           <button
             className="md:hidden text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -44,7 +44,7 @@ const Navigation = ({
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
-          {/* Desktop Navigation */}
+          {/* ✅ Desktop Navigation */}
           <div className="hidden md:flex space-x-1">
             <Link
               to="/"
@@ -97,7 +97,7 @@ const Navigation = ({
             )}
           </div>
 
-          {/* Auth Buttons */}
+          {/* ✅ Auth Buttons */}
           <div className="hidden md:flex space-x-3">
             {!isLoggedIn ? (
               <Link
@@ -110,7 +110,7 @@ const Navigation = ({
               <button
                 onClick={() => {
                   handleLogout();
-                  navigate("/"); // ✅ redirect after logout
+                  navigate("/"); // redirect after logout
                 }}
                 className="px-4 py-2 rounded-lg border border-red-500 text-red-400 hover:bg-red-500 hover:text-gray-900 transition-all duration-300 font-semibold flex items-center gap-2"
               >
@@ -120,7 +120,7 @@ const Navigation = ({
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* ✅ Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden pb-4 space-y-2">
             <Link
@@ -143,7 +143,7 @@ const Navigation = ({
               <Link
                 to="/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block w-full text-left px-4 py-2 rounded-lg border border-amber-500 text-amber-400"
+                className="block w-full text-left px-4 py-2 rounded-lg border border-amber-500 text-amber-400 hover:bg-amber-500/20"
               >
                 Login
               </Link>

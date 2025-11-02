@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import useAppState from "./useAppState";
 
 // Pages
 import Navigation from "./pages/Navigation";
@@ -10,7 +9,12 @@ import ArtworkDetailPage from "./pages/ArtworkDetailPage";
 import ArtistDashboard from "./pages/ArtistDashboard";
 import BuyerDashboard from "./pages/BuyerDashboard";
 import AdminPanel from "./pages/AdminPanel";
-import { AnalyticsPage, LoginPage } from "./pages/AnalyticsPage";
+import { AnalyticsPage } from "./pages/AnalyticsPage";
+import { LoginPage } from "./pages/LoginPage";
+import { AdminLoginPage } from "./components/AdminLoginPage";
+import { BuyerLoginPage } from "./components/BuyerLoginPage";
+import { ArtistLoginPage } from "./components/ArtistLoginPage";
+import useAppState from "./useAppState";
 
 function App() {
   const app = useAppState();
@@ -20,8 +24,6 @@ function App() {
       <div className="bg-gray-900 min-h-screen text-white">
         {/* ✅ Always show navigation */}
         <Navigation
-          currentPage={app.currentPage}
-          setCurrentPage={app.setCurrentPage}
           isLoggedIn={app.isLoggedIn}
           userRole={app.userRole}
           handleLogout={app.handleLogout}
@@ -36,12 +38,10 @@ function App() {
             element={
               <HomePage
                 artworks={app.artworks}
-                setCurrentPage={app.setCurrentPage}
                 setSelectedArtwork={app.setSelectedArtwork}
               />
             }
           />
-
           <Route
             path="/artworks"
             element={
@@ -54,17 +54,14 @@ function App() {
                 handleCategoryFilter={app.setFilterCategory}
                 handlePriceFilter={app.setFilterPrice}
                 setSelectedArtwork={app.setSelectedArtwork}
-                setCurrentPage={app.setCurrentPage}
               />
             }
           />
-
           <Route
             path="/artwork/:id"
             element={
               <ArtworkDetailPage
                 selectedArtwork={app.selectedArtwork}
-                setCurrentPage={app.setCurrentPage}
                 isLoggedIn={app.isLoggedIn}
                 userRole={app.userRole}
                 bidAmount={app.bidAmount}
@@ -74,15 +71,22 @@ function App() {
               />
             }
           />
-
           <Route path="/artist-dashboard" element={<ArtistDashboard />} />
           <Route path="/buyer-dashboard" element={<BuyerDashboard />} />
           <Route path="/admin-panel" element={<AdminPanel />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
-
+          <Route path="/login" element={<LoginPage />} />
           <Route
-            path="/login"
-            element={<LoginPage handleLogin={app.handleLogin} />}
+            path="/buyer-login"
+            element={<BuyerLoginPage handleLogin={app.handleLogin} />}
+          />
+          <Route
+            path="/artist-login"
+            element={<ArtistLoginPage handleLogin={app.handleLogin} />}
+          />
+          <Route
+            path="/admin-login"
+            element={<AdminLoginPage handleLogin={app.handleLogin} />}
           />
         </Routes>
       </div>
@@ -91,21 +95,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
