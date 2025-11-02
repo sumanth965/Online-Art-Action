@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Pages
+
+import Dummyy from "./dummyy/dummyy";
 import Navigation from "./pages/Navigation";
 import HomePage from "./pages/MainHomepage";
 import ArtworkListingPage from "./pages/ArtworkListingPage";
@@ -76,18 +78,10 @@ function App() {
           <Route path="/admin-panel" element={<AdminPanel />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/buyer-login"
-            element={<BuyerLoginPage handleLogin={app.handleLogin} />}
-          />
-          <Route
-            path="/artist-login"
-            element={<ArtistLoginPage handleLogin={app.handleLogin} />}
-          />
-          <Route
-            path="/admin-login"
-            element={<AdminLoginPage handleLogin={app.handleLogin} />}
-          />
+          <Route path="/buyer-login" element={<BuyerLoginPage handleLogin={app.handleLogin} />} />
+          <Route path="/artist-login" element={<ArtistLoginPage handleLogin={app.handleLogin} />} />
+          <Route path="/admin-login" element={<AdminLoginPage handleLogin={app.handleLogin} />} />
+          <Route path="/aa" element={<Dummyy />} />
         </Routes>
       </div>
     </Router>
