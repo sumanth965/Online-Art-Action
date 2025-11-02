@@ -18,7 +18,9 @@ const Navigation = ({
   mobileMenuOpen,
   setMobileMenuOpen,
 }) => {
-  const navigate = useNavigate(); // ✅ for redirect after logout
+  const navigate = useNavigate();
+
+  const handleNavClick = () => setMobileMenuOpen(false);
 
   return (
     <nav className="sticky top-0 z-50 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-b border-amber-500/20 backdrop-blur-sm">
@@ -28,7 +30,7 @@ const Navigation = ({
           <Link
             to="/"
             className="flex items-center space-x-2 cursor-pointer"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={handleNavClick}
           >
             <Palette className="text-amber-500 text-2xl" size={28} />
             <span className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
@@ -60,6 +62,7 @@ const Navigation = ({
               <Palette size={18} /> Artworks
             </Link>
 
+            {/* ✅ Role-based Links */}
             {isLoggedIn && userRole === "Artist" && (
               <Link
                 to="/artist-dashboard"
@@ -97,7 +100,7 @@ const Navigation = ({
             )}
           </div>
 
-          {/* ✅ Auth Buttons */}
+          {/* ✅ Auth Buttons (Desktop) */}
           <div className="hidden md:flex space-x-3">
             {!isLoggedIn ? (
               <Link
@@ -110,7 +113,7 @@ const Navigation = ({
               <button
                 onClick={() => {
                   handleLogout();
-                  navigate("/"); // redirect after logout
+                  navigate("/");
                 }}
                 className="px-4 py-2 rounded-lg border border-red-500 text-red-400 hover:bg-red-500 hover:text-gray-900 transition-all duration-300 font-semibold flex items-center gap-2"
               >
@@ -122,31 +125,85 @@ const Navigation = ({
 
         {/* ✅ Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden pb-4 space-y-2">
+          <div className="md:hidden pb-4 space-y-2 animate-fadeIn">
+            {/* General Links */}
             <Link
               to="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left px-4 py-2 rounded-lg hover:bg-amber-500/20"
+              onClick={handleNavClick}
+              className="block w-full text-left px-4 py-2 rounded-lg hover:bg-amber-500/20 flex items-center gap-2"
             >
-              Home
+              <Home size={18} /> Home
             </Link>
 
             <Link
               to="/artworks"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-left px-4 py-2 rounded-lg hover:bg-amber-500/20"
+              onClick={handleNavClick}
+              className="block w-full text-left px-4 py-2 rounded-lg hover:bg-amber-500/20 flex items-center gap-2"
             >
-              Artworks
+              <Palette size={18} /> Artworks
             </Link>
 
-            {!isLoggedIn && (
+            {/* ✅ Role-Based Links in Mobile */}
+            {isLoggedIn && userRole === "Artist" && (
+              <Link
+                to="/artist-dashboard"
+                onClick={handleNavClick}
+                className="block w-full text-left px-4 py-2 rounded-lg hover:bg-amber-500/20 flex items-center gap-2"
+              >
+                <ShoppingCart size={18} /> Dashboard
+              </Link>
+            )}
+
+            {isLoggedIn && userRole === "Buyer" && (
+              <Link
+                to="/buyer-dashboard"
+                onClick={handleNavClick}
+                className="block w-full text-left px-4 py-2 rounded-lg hover:bg-amber-500/20 flex items-center gap-2"
+              >
+                <ShoppingCart size={18} /> My Bids
+              </Link>
+            )}
+
+            {isLoggedIn && userRole === "Admin" && (
+              <Link
+                to="/admin-panel"
+                onClick={handleNavClick}
+                className="block w-full text-left px-4 py-2 rounded-lg hover:bg-amber-500/20 flex items-center gap-2"
+              >
+                <Users size={18} /> Admin
+              </Link>
+            )}
+
+            {isLoggedIn && (
+              <Link
+                to="/analytics"
+                onClick={handleNavClick}
+                className="block w-full text-left px-4 py-2 rounded-lg hover:bg-amber-500/20 flex items-center gap-2"
+              >
+                <BarChart3 size={18} /> Analytics
+              </Link>
+            )}
+
+            {/* ✅ Auth Buttons (Mobile) */}
+            {!isLoggedIn ? (
               <Link
                 to="/login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block w-full text-left px-4 py-2 rounded-lg border border-amber-500 text-amber-400 hover:bg-amber-500/20"
+                onClick={handleNavClick}
+                className="block w-full text-left px-4 py-2 rounded-lg border border-amber-500 text-amber-400 hover:bg-amber-500/20 font-semibold"
               >
                 Login
               </Link>
+            ) : (
+              <button
+                onClick={() => {
+                  handleLogout();
+                  navigate("/");
+                  setMobileMenuOpen(false);
+                }}
+                className="block w-full text-left px-4 py-2 rounded-lg border border-red-500 text-red-400 hover:bg-red-500 hover:text-gray-900 font-semibold flex items-center gap-2"
+              >
+                <LogOut size={18} /> Logout
+              </button>
             )}
           </div>
         )}
