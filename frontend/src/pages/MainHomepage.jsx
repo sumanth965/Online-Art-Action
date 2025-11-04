@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const navigate = useNavigate();
+
   const [artworks] = useState([
     {
       id: 1,
@@ -135,7 +138,9 @@ export default function HomePage() {
               Explore Auctions
             </button>
 
-            <button className="px-10 py-3.5 border border-amber-400 text-amber-300 rounded-xl font-semibold tracking-wide hover:bg-amber-400/10 hover:text-amber-200 transition-all duration-300">
+            <button onClick={() => navigate("/login")}
+
+              className="px-10 py-3.5 border border-amber-400 text-amber-300 rounded-xl font-semibold tracking-wide hover:bg-amber-400/10 hover:text-amber-200 transition-all duration-300">
               Get Started
             </button>
           </div>
