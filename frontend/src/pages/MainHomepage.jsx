@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ThreeBackground from "../components/ThreeBackground";
+
 
 export default function HomePage() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -72,6 +74,7 @@ export default function HomePage() {
 
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black overflow-hidden">
+      <ThreeBackground />
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotateZ(0deg); }
