@@ -1,9 +1,63 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-const HomePage = ({ artworks, setCurrentPage, setSelectedArtwork }) => {
-  const navigate = useNavigate();
+export default function HomePage() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [artworks] = useState([
+    {
+      id: 1,
+      title: "Golden Sunset",
+      artist: "Alex Rivera",
+      currentBid: 125000,
+      bids: 24,
+      timeLeft: "2h 30m",
+      image: "🌅",
+    },
+    {
+      id: 2,
+      title: "Cosmic Dreams",
+      artist: "Maya Patel",
+      currentBid: 89500,
+      bids: 18,
+      timeLeft: "5h 15m",
+      image: "🌌",
+    },
+    {
+      id: 3,
+      title: "Ocean Whispers",
+      artist: "James Chen",
+      currentBid: 156000,
+      bids: 31,
+      timeLeft: "1h 45m",
+      image: "🌊",
+    },
+    {
+      id: 4,
+      title: "Forest Echo",
+      artist: "Sofia Mendez",
+      currentBid: 98700,
+      bids: 22,
+      timeLeft: "3h 20m",
+      image: "🌲",
+    },
+    {
+      id: 5,
+      title: "Midnight City",
+      artist: "Marcus Johnson",
+      currentBid: 142300,
+      bids: 29,
+      timeLeft: "4h 10m",
+      image: "🌃",
+    },
+    {
+      id: 6,
+      title: "Desert Rose",
+      artist: "Elena Rossi",
+      currentBid: 111500,
+      bids: 26,
+      timeLeft: "2h 55m",
+      image: "🌹",
+    },
+  ]);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -15,9 +69,38 @@ const HomePage = ({ artworks, setCurrentPage, setSelectedArtwork }) => {
 
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black overflow-hidden">
-      {/* 🟡 Animated Gradient Orb Background */}
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+          50% { transform: translateY(-20px) rotateZ(5deg); }
+        }
+        @keyframes pulse-glow {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 1; }
+        }
+        @keyframes shimmer {
+          0% { background-position: -1000px 0; }
+          100% { background-position: 1000px 0; }
+        }
+        @keyframes slide-up {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glow-pulse {
+          0%, 100% { box-shadow: 0 0 20px rgba(217,119,6,0.3); }
+          50% { box-shadow: 0 0 40px rgba(217,119,6,0.6); }
+        }
+        .float { animation: float 6s ease-in-out infinite; }
+        .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+        .shimmer { animation: shimmer 3s infinite; background-size: 1000px 100%; }
+        .slide-up { animation: slide-up 0.8s ease-out forwards; }
+        .glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+      `}
+      </style>
+
+      {/* Animated Gradient Orb */}
       <div
-        className="absolute w-96 h-96 bg-gradient-to-r from-amber-500/30 to-orange-500/20 rounded-full blur-3xl pointer-events-none"
+        className="absolute w-96 h-96 bg-gradient-to-r from-amber-500/40 to-orange-500/30 rounded-full blur-3xl pointer-events-none pulse-glow"
         style={{
           left: `${mousePos.x * 0.02}px`,
           top: `${mousePos.y * 0.02}px`,
@@ -25,32 +108,34 @@ const HomePage = ({ artworks, setCurrentPage, setSelectedArtwork }) => {
         }}
       ></div>
 
-      {/* ✨ Subtle gold radial accent overlay */}
+      {/* Secondary Orb */}
+      <div className="absolute w-80 h-80 bg-gradient-to-r from-red-500/20 to-amber-500/15 rounded-full blur-3xl pointer-events-none float"
+        style={{
+          right: "-100px",
+          bottom: "-50px",
+        }}
+      ></div>
+
+      {/* Radial Accent Overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,119,6,0.25),rgba(0,0,0,0))] pointer-events-none"></div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-white">
         {/* Hero Section */}
-        <div className="text-center mb-24">
+        <div className="text-center mb-24 slide-up">
           <h1 className="text-6xl md:text-7xl font-serif font-bold mb-8 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600 bg-clip-text text-transparent tracking-tight drop-shadow-xl">
             Discover Authentic Art
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed opacity-0 animate-[slide-up_0.8s_ease-out_0.2s_forwards]">
             Experience the world of fine art. Bid on exclusive pieces, support visionary artists, and own timeless masterpieces.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-5 justify-center">
-            <button
-              onClick={() => setCurrentPage("artworks")}
-              className="px-10 py-3.5 bg-gradient-to-r from-amber-600 to-yellow-500 text-gray-900 rounded-xl font-semibold tracking-wide shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 hover:scale-[1.02] transition-all duration-300"
-            >
+          <div className="flex flex-col sm:flex-row gap-5 justify-center opacity-0 animate-[slide-up_0.8s_ease-out_0.4s_forwards]">
+            <button className="px-10 py-3.5 bg-gradient-to-r from-amber-600 to-yellow-500 text-gray-900 rounded-xl font-semibold tracking-wide shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 hover:scale-[1.02] transition-all duration-300 glow-pulse">
               Explore Auctions
             </button>
 
-            <button
-              onClick={() => navigate("/login")}
-              className="px-10 py-3.5 border border-amber-400 text-amber-300 rounded-xl font-semibold tracking-wide hover:bg-amber-400/10 hover:text-amber-200 transition-all duration-300"
-            >
+            <button className="px-10 py-3.5 border border-amber-400 text-amber-300 rounded-xl font-semibold tracking-wide hover:bg-amber-400/10 hover:text-amber-200 transition-all duration-300">
               Get Started
             </button>
           </div>
@@ -58,18 +143,21 @@ const HomePage = ({ artworks, setCurrentPage, setSelectedArtwork }) => {
 
         {/* Ongoing Auctions */}
         <div className="mt-16">
-          <h2 className="text-3xl font-bold mb-8 text-center text-amber-400">
+          <h2 className="text-3xl font-bold mb-8 text-center text-amber-400 opacity-0 animate-[slide-up_0.8s_ease-out_0.3s_forwards]">
             Ongoing Auctions
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {artworks.map((artwork) => (
+            {artworks.map((artwork, idx) => (
               <div
                 key={artwork.id}
-                className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden border border-gray-700 hover:border-amber-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/20"
+                className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden border border-gray-700 hover:border-amber-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/20 hover:scale-105 cursor-pointer opacity-0 animate-[slide-up_0.8s_ease-out_forwards]"
+                style={{
+                  animationDelay: `${0.1 * (idx + 1)}s`,
+                }}
               >
-                <div className="relative h-48 overflow-hidden flex items-center justify-center bg-gradient-to-br from-amber-900/30 to-gray-900 text-6xl">
+                <div className="relative h-48 overflow-hidden flex items-center justify-center bg-gradient-to-br from-amber-900/30 to-gray-900 text-6xl group-hover:scale-110 transition-transform duration-500 float">
                   {artwork.image}
-                  <div className="absolute top-3 right-3 bg-red-600 px-3 py-1 rounded-full text-sm font-bold">
+                  <div className="absolute top-3 right-3 bg-red-600 px-3 py-1 rounded-full text-sm font-bold pulse-glow">
                     LIVE
                   </div>
                 </div>
@@ -97,13 +185,7 @@ const HomePage = ({ artworks, setCurrentPage, setSelectedArtwork }) => {
                     </div>
                   </div>
 
-                  <button
-                    onClick={() => {
-                      setSelectedArtwork(artwork);
-                      setCurrentPage("artwork-detail");
-                    }}
-                    className="w-full py-2 bg-amber-500 text-gray-900 rounded-lg font-bold hover:bg-amber-600 transition-colors"
-                  >
+                  <button className="w-full py-2 bg-amber-500 text-gray-900 rounded-lg font-bold hover:bg-amber-600 transition-colors glow-pulse">
                     View Details
                   </button>
                 </div>
@@ -114,7 +196,7 @@ const HomePage = ({ artworks, setCurrentPage, setSelectedArtwork }) => {
 
         {/* Features */}
         <div className="mt-24">
-          <h2 className="text-3xl font-bold text-center mb-12 text-amber-400">
+          <h2 className="text-3xl font-bold text-center mb-12 text-amber-400 opacity-0 animate-[slide-up_0.8s_ease-out_0.5s_forwards]">
             Platform Features
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -152,9 +234,12 @@ const HomePage = ({ artworks, setCurrentPage, setSelectedArtwork }) => {
             ].map((feature, idx) => (
               <div
                 key={idx}
-                className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl border border-gray-700 hover:border-amber-500/50 transition-all group hover:shadow-lg hover:shadow-amber-500/10"
+                className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl border border-gray-700 hover:border-amber-500/50 transition-all group hover:shadow-lg hover:shadow-amber-500/10 hover:scale-105 opacity-0 animate-[slide-up_0.8s_ease-out_forwards]"
+                style={{
+                  animationDelay: `${0.08 * (idx + 1) + 0.6}s`,
+                }}
               >
-                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">
+                <div className="text-4xl mb-4 group-hover:scale-125 transition-transform duration-300 float">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-bold mb-3 group-hover:text-amber-400 transition-colors">
@@ -168,6 +253,4 @@ const HomePage = ({ artworks, setCurrentPage, setSelectedArtwork }) => {
       </div>
     </section>
   );
-};
-
-export default HomePage;
+}
