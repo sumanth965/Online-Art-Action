@@ -73,7 +73,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black overflow-hidden">
+    <section className="relative min-h-screen bg-gradient-to-br from-gray-950 via-blue-900 to-black overflow-hidden">
       <ThreeBackground />
       <style>{`
         @keyframes float {
