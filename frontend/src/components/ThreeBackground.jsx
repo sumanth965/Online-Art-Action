@@ -19,14 +19,14 @@ const ThreeBackground = () => {
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
-      powerPreference: "high-performance"
+      powerPreference: "high-performance",
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
     mountRef.current?.appendChild(renderer.domElement);
 
-    // Advanced Lighting Setup
+    // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
     const pointLight1 = new THREE.PointLight(0xf59e0b, 2.5, 100);
     pointLight1.position.set(10, 10, 10);
@@ -39,7 +39,7 @@ const ThreeBackground = () => {
 
     scene.add(ambientLight, pointLight1, pointLight2, pointLight3);
 
-    // Floating Particles (Fine Art Dust)
+    // Floating Particles
     const particleGeometry = new THREE.BufferGeometry();
     const particleCount = 200;
     const positions = new Float32Array(particleCount * 3);
@@ -50,7 +50,7 @@ const ThreeBackground = () => {
       positions[i + 2] = (Math.random() - 0.5) * 20;
     }
 
-    particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    particleGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
     const particleMaterial = new THREE.PointsMaterial({
       color: 0xf59e0b,
@@ -63,16 +63,16 @@ const ThreeBackground = () => {
     const particles = new THREE.Points(particleGeometry, particleMaterial);
     scene.add(particles);
 
-    // Floating Geo Shapes (Dodecahedrons)
+    // Floating Geo Shapes
     const shapeGeometry = new THREE.DodecahedronGeometry(0.3, 0);
     const shapes = Array.from({ length: 8 }).map((_, i) => {
+      const color = [0xf59e0b, 0xdc2626, 0x1e40af, 0xfbbf24][i % 4];
       const material = new THREE.MeshStandardMaterial({
-        color: [0xf59e0b, 0xdc2626, 0x1e40af, 0xfbbf24][i % 4],
-        emissive: [0xf59e0b, 0xdc2626, 0x1e40af, 0xfbbf24][i % 4],
+        color,
+        emissive: color,
         emissiveIntensity: 0.4,
         roughness: 0.5,
         metalness: 0.3,
-        wireframe: false,
       });
 
       const shape = new THREE.Mesh(shapeGeometry, material);
@@ -98,27 +98,13 @@ const ThreeBackground = () => {
       return shape;
     });
 
-    // Glowing Torus Ring
-    const torusGeometry = new THREE.TorusGeometry(3, 0.1, 16, 100);
-    const torusMaterial = new THREE.MeshStandardMaterial({
-      color: 0xf59e0b,
-      emissive: 0xf59e0b,
-      emissiveIntensity: 0.3,
-      roughness: 0.3,
-      metalness: 0.8,
-    });
-    const torus = new THREE.Mesh(torusGeometry, torusMaterial);
-    torus.rotation.x = Math.random() * Math.PI;
-    torus.rotation.y = Math.random() * Math.PI;
-    scene.add(torus);
-
-    // Animated Lines (Art Connections)
+    // Animated Lines
     const lineGeometry = new THREE.BufferGeometry();
     const linePositions = new Float32Array(300);
     for (let i = 0; i < 300; i++) {
       linePositions[i] = (Math.random() - 0.5) * 15;
     }
-    lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+    lineGeometry.setAttribute("position", new THREE.BufferAttribute(linePositions, 3));
 
     const lineMaterial = new THREE.LineBasicMaterial({
       color: 0xf59e0b,
@@ -156,7 +142,7 @@ const ThreeBackground = () => {
       camera.rotation.x = currentRotation.x;
 
       // Animate particles
-      const positionAttribute = particles.geometry.getAttribute('position');
+      const positionAttribute = particles.geometry.getAttribute("position");
       const posArray = positionAttribute.array;
       for (let i = 0; i < posArray.length; i += 3) {
         posArray[i + 1] += 0.005;
@@ -166,7 +152,7 @@ const ThreeBackground = () => {
       particles.rotation.z += 0.0001;
 
       // Animate shapes
-      shapes.forEach((shape, idx) => {
+      shapes.forEach((shape) => {
         shape.rotation.x += shape.userData.rotationSpeed.x;
         shape.rotation.y += shape.userData.rotationSpeed.y;
         shape.rotation.z += shape.userData.rotationSpeed.z;
@@ -179,15 +165,6 @@ const ThreeBackground = () => {
           shape.userData.startPos.y +
           Math.sin(shape.userData.angle * 0.5) * shape.userData.orbitRadius * 0.5;
       });
-
-      // Animate torus
-      torus.rotation.x += 0.0002;
-      torus.rotation.y += 0.0003;
-      torus.scale.set(
-        1 + Math.sin(elapsed * 0.5) * 0.1,
-        1 + Math.cos(elapsed * 0.5) * 0.1,
-        1
-      );
 
       // Animate lines
       lines.rotation.x += 0.00005;
@@ -216,11 +193,9 @@ const ThreeBackground = () => {
       particleGeometry.dispose();
       particleMaterial.dispose();
       shapeGeometry.dispose();
-      torusGeometry.dispose();
-      torusMaterial.dispose();
       lineGeometry.dispose();
       lineMaterial.dispose();
-      shapes.forEach(shape => shape.material.dispose());
+      shapes.forEach((shape) => shape.material.dispose());
     };
   }, []);
 
