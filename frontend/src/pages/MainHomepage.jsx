@@ -106,10 +106,10 @@ export default function HomePage() {
 
       {/* Animated Gradient Orb */}
       <div
-        className="absolute w-96 h-96 bg-gradient-to-r from-amber-500/40 to-orange-500/30 rounded-full blur-3xl pointer-events-none pulse-glow"
+        className="absolute w-96 h-96 bg-gradient-to-r from-amber-500/30 to-orange-500/20 rounded-full blur-3xl pointer-events-none pulse-glow"
         style={{
-          left: `${mousePos.x * 0.02}px`,
-          top: `${mousePos.y * 0.02}px`,
+          left: `${mousePos.x * 0.09}px`,
+          top: `${mousePos.y * 0.09}px`,
           transition: "all 0.3s ease-out",
         }}
       ></div>
