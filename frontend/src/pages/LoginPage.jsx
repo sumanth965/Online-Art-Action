@@ -6,43 +6,52 @@ export const LoginPage = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center py-12 px-4">
+    <section className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full">
+        {/* Header */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">
-            <Palette className="text-amber-500" size={40} />
+            <div className="p-3 bg-slate-800/50 rounded-lg">
+              <Palette className="text-slate-300" size={32} />
+            </div>
           </div>
-          <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold mb-2 text-slate-50">
             ArtVault
           </h1>
-          <p className="text-gray-400">Select your role to continue</p>
+          <p className="text-slate-400 text-sm">Platform for Artists & Collectors</p>
         </div>
 
-        <div className="bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl border border-gray-700/50 space-y-4">
+        {/* Login Options */}
+        <div className="space-y-3">
           <button
             onClick={() => navigate("/buyer-login")}
-            className="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-gray-900 rounded-lg font-bold hover:shadow-lg hover:shadow-amber-500/50 transition-all duration-300 flex items-center justify-center gap-2 group"
+            className="w-full py-3 px-4 bg-slate-800 border border-slate-700 text-slate-50 rounded-lg font-medium transition-colors duration-200 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:ring-offset-2 focus:ring-offset-slate-950 flex items-center justify-center gap-3"
           >
-            <ShoppingCart size={20} className="group-hover:scale-110 transition-transform" />
+            <ShoppingCart size={20} className="text-slate-400" />
             Login as Buyer
           </button>
 
           <button
             onClick={() => navigate("/artist-login")}
-            className="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-gray-900 rounded-lg font-bold hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 flex items-center justify-center gap-2 group"
+            className="w-full py-3 px-4 bg-slate-800 border border-slate-700 text-slate-50 rounded-lg font-medium transition-colors duration-200 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:ring-offset-2 focus:ring-offset-slate-950 flex items-center justify-center gap-3"
           >
-            <Palette size={20} className="group-hover:scale-110 transition-transform" />
+            <Palette size={20} className="text-slate-400" />
             Login as Artist
           </button>
 
           <button
             onClick={() => navigate("/admin-login")}
-            className="w-full py-3 bg-gradient-to-r from-green-500 to-green-600 text-gray-900 rounded-lg font-bold hover:shadow-lg hover:shadow-green-500/50 transition-all duration-300 flex items-center justify-center gap-2 group"
+            className="w-full py-3 px-4 bg-slate-800 border border-slate-700 text-slate-50 rounded-lg font-medium transition-colors duration-200 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:ring-offset-2 focus:ring-offset-slate-950 flex items-center justify-center gap-3"
           >
-            <Shield size={20} className="group-hover:scale-110 transition-transform" />
+            <Shield size={20} className="text-slate-400" />
             Login as Admin
           </button>
         </div>
+
+        {/* Footer */}
+        <p className="text-slate-500 text-xs text-center mt-8">
+          © 2025 ArtVault. All rights reserved.
+        </p>
       </div>
     </section>
   );
