@@ -236,57 +236,39 @@ export default function HomePage() {
         </div>
 
         {/* Features */}
-        <div className="mt-24">
-          <h2 className="text-3xl font-bold text-center mb-12 text-amber-400 opacity-0 animate-[slide-up_0.8s_ease-out_0.5s_forwards]">
+        <div className="mt-32 relative">
+          <h2 className="text-3xl font-bold mb-8 text-center text-amber-400 opacity-0 animate-[slide-up_0.8s_ease-out_0.3s_forwards]">
             Platform Features
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-6 md:px-16">
             {[
-              {
-                icon: "🔨",
-                title: "Live Bidding",
-                desc: "Real-time auction bidding with instant updates",
-              },
-              {
-                icon: "🎨",
-                title: "Artist Portal",
-                desc: "Upload artworks and manage listings easily",
-              },
-              {
-                icon: "📊",
-                title: "Analytics",
-                desc: "Comprehensive reports and insights",
-              },
-              {
-                icon: "🔍",
-                title: "Smart Search",
-                desc: "Filter by category, artist, and price",
-              },
-              {
-                icon: "🔒",
-                title: "Secure",
-                desc: "JWT authentication and encrypted transactions",
-              },
-              {
-                icon: "📱",
-                title: "Mobile Ready",
-                desc: "Fully responsive design for all devices",
-              },
+              { icon: "🔨", title: "Live Bidding", desc: "Experience real-time auctions with instant updates and competitive thrill." },
+              { icon: "🎨", title: "Artist Portal", desc: "Empower artists to upload, manage, and showcase artworks seamlessly." },
+              { icon: "📊", title: "Analytics", desc: "Get insights into bidding trends, popular artists, and buyer activity." },
+              { icon: "🔍", title: "Smart Search", desc: "Find art quickly using filters for category, artist, and price range." },
+              { icon: "🔒", title: "Secure", desc: "Protect your transactions with advanced encryption and JWT authentication." },
+              { icon: "📱", title: "Mobile Ready", desc: "Enjoy a smooth, responsive experience across all devices." },
             ].map((feature, idx) => (
               <div
                 key={idx}
-                className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl border border-gray-700 hover:border-amber-500/50 ]"
+                className="relative group backdrop-blur-lg bg-gradient-to-br from-gray-800/70 to-gray-900/80 rounded-3xl p-8 border border-gray-700 shadow-xl hover:shadow-amber-500/20 hover:border-amber-500/50 transform transition-all duration-500 "
                 style={{
-                  animationDelay: `${0.08 * (idx + 1) + 0.6}s`,
+                  animationDelay: `${0.08 * (idx + 1) + 0.5}s`,
                 }}
               >
-                <div className="text-4xl mb-4 group-hover:scale-125 transition-transform duration-300 float">
-                  {feature.icon}
+                <div className="flex flex-col items-center text-center space-y-4">
+                  <div className="text-5xl transition-transform duration-500 group-hover:scale-125 group-hover:rotate-6">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors ">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed">{feature.desc}</p>
                 </div>
-                <h3 className="text-xl font-bold mb-3 group-hover:text-amber-400 transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-400">{feature.desc}</p>
+
+                {/* Glow border animation */}
+                <div className="absolute inset-0 rounded-3xl border border-transparent group-hover:border-amber-400/30 transition-all duration-700"></div>
               </div>
             ))}
           </div>
