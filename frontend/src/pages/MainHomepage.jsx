@@ -128,9 +128,15 @@ export default function HomePage() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-white">
         {/* Hero Section */}
         <div className="text-center mb-24 slide-up">
-          <h1 className="text-6xl md:text-7xl font-serif font-bold mb-8 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600 bg-clip-text text-transparent tracking-tight drop-shadow-xl">
+          <h1
+            className="text-6xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600 bg-clip-text text-transparent tracking-tight drop-shadow-xl [font-family:cursive]"
+          >
             Discover Authentic Art
           </h1>
+
+
+
+
 
           <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed opacity-0 animate-[slide-up_0.8s_ease-out_0.2s_forwards]">
             Experience the world of fine art. Bid on exclusive pieces, support visionary artists, and own timeless masterpieces.
