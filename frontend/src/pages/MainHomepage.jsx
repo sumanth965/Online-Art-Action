@@ -155,57 +155,84 @@ export default function HomePage() {
           </div>
         </div>
 
+
+
+
+
+
+
+
+
+        {/* Ongoing Auctions */}
         {/* Ongoing Auctions */}
         <div className="mt-16">
           <h2 className="text-3xl font-bold mb-8 text-center text-amber-400 opacity-0 animate-[slide-up_0.8s_ease-out_0.3s_forwards]">
             Ongoing Auctions
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-6">
             {artworks.map((artwork, idx) => (
               <div
                 key={artwork.id}
-                className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden border border-gray-700 hover:border-amber-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/20 hover:scale-105 cursor-pointer opacity-0 animate-[slide-up_0.8s_ease-out_forwards]"
+                onClick={() => navigate(`/artwork/${artwork.id}`)}
+                className="relative group bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-3xl overflow-hidden border border-gray-700 cursor-pointer hover:border-amber-400/70 transition-all duration-500  hover:shadow-[0_0_30px_-10px_rgba(251,191,36,0.6)]"
                 style={{
                   animationDelay: `${0.1 * (idx + 1)}s`,
                 }}
               >
-                <div className="relative h-48 overflow-hidden flex items-center justify-center bg-gradient-to-br from-amber-900/30 to-gray-900 text-6xl group-hover:scale-110 transition-transform duration-500 float">
+                {/* Artwork Image */}
+                <div className="relative h-56 overflow-hidden flex items-center justify-center bg-gradient-to-br from-amber-800/20 to-gray-800 text-6xl group-hover:opacity-80 transition-all">
                   {artwork.image}
-                  <div className="absolute top-3 right-3 bg-red-600 px-3 py-1 rounded-full text-sm font-bold pulse-glow">
-                    LIVE
+                  <div className="absolute top-3 right-3 bg-gradient-to-r from-red-500 to-red-700 px-3 py-1 rounded-full text-xs font-bold tracking-wide shadow-md">
+                    🔴 LIVE
                   </div>
                 </div>
 
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-amber-400 transition-colors">
+                {/* Content */}
+                <div className="p-6 space-y-4">
+                  <h3 className="text-2xl font-extrabold text-amber-400 group-hover:text-amber-300 transition-colors">
                     {artwork.title}
                   </h3>
-                  <p className="text-gray-400 text-sm mb-4">by {artwork.artist}</p>
+                  <p className="text-gray-400 text-sm">by {artwork.artist}</p>
 
-                  <div className="space-y-3 mb-4">
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Current Bid:</span>
+                  <div className="border-t border-gray-700 pt-4 space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Current Bid</span>
                       <span className="text-amber-400 font-bold">
                         ₹{artwork.currentBid.toLocaleString()}
                       </span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Bids:</span>
-                      <span className="text-white font-bold">{artwork.bids}</span>
+
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Bids</span>
+                      <span className="text-white font-semibold">{artwork.bids}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Time Left:</span>
-                      <span className="text-orange-400 font-bold">{artwork.timeLeft}</span>
+
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Time Left</span>
+                      <span className="text-orange-400 font-semibold">
+                        {artwork.timeLeft}
+                      </span>
                     </div>
                   </div>
 
-                  <button className="w-full py-2 bg-amber-500 text-gray-900 rounded-lg font-bold hover:bg-amber-600 transition-colors glow-pulse">
-                    View Details
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/artwork/${artwork.id}`);
+                    }}
+                    className="w-full py-2 mt-4 bg-gradient-to-r from-amber-400 to-amber-600 text-gray-900 rounded-lg font-bold hover:from-amber-300 hover:to-amber-500 transition-all shadow-md group-hover:shadow-lg"
+                  >
+                    View Details →
                   </button>
                 </div>
+
+                {/* Glow effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-gradient-to-t from-amber-400/20 to-transparent transition-all duration-500"></div>
               </div>
             ))}
           </div>
+
         </div>
 
         {/* Features */}
@@ -248,7 +275,7 @@ export default function HomePage() {
             ].map((feature, idx) => (
               <div
                 key={idx}
-                className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl border border-gray-700 hover:border-amber-500/50 transition-all group hover:shadow-lg hover:shadow-amber-500/10 hover:scale-105 opacity-0 animate-[slide-up_0.8s_ease-out_forwards]"
+                className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl border border-gray-700 hover:border-amber-500/50 ]"
                 style={{
                   animationDelay: `${0.08 * (idx + 1) + 0.6}s`,
                 }}
