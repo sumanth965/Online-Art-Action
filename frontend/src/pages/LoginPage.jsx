@@ -6,7 +6,7 @@ export const LoginPage = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center py-12 px-4">
+    <section className=" bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full">
         {/* Header */}
         <div className="text-center mb-12">
