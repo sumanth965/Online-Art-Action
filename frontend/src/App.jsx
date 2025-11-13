@@ -11,10 +11,10 @@ import ArtistDashboard from "./pages/ArtistDashboard";
 import BuyerDashboard from "./pages/BuyerDashboard";
 import AdminPanel from "./pages/AdminPanel";
 import { AnalyticsPage } from "./pages/AnalyticsPage";
-import { LoginPage } from "./pages/LoginPage";
-import { AdminLoginPage } from "./components/AdminLoginPage";
-import { BuyerLoginPage } from "./components/BuyerLoginPage";
-import { ArtistLoginPage } from "./components/ArtistLoginPage";
+import { LoginPage } from "./pages/loginPage/LoginPage";
+import AdminLoginPage from "./pages/loginPage/AdminLoginPage";
+import BuyerLoginPage from "./pages/loginPage/BuyerLoginPage";
+import ArtistLoginPage from "./pages/loginPage/ArtistLoginPage";
 import useAppState from "./useAppState";
 
 function App() {

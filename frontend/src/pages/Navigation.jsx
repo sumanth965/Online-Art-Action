@@ -10,30 +10,32 @@ import {
   X,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; // ✅ global auth hook
 
-const Navigation = ({
-  isLoggedIn = false,
-  userRole = "Buyer",
-  handleLogout = () => console.log("Logout"),
-  mobileMenuOpen = false,
-  setMobileMenuOpen = () => { },
-}) => {
+const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState("/");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
+  // ✅ Access global authentication state
+  const { isLoggedIn, userRole, logout } = useAuth();
+
+  // ✅ Scroll effect
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // ✅ Navigation handler
   const handleNavClick = (path) => {
     setActiveLink(path);
     setMobileMenuOpen(false);
     navigate(path);
   };
 
+  // ✅ Define navigation links dynamically
   const navLinks = [
     { path: "/", label: "Home", icon: Home, show: true },
     { path: "/artworks", label: "Artworks", icon: Palette, show: true },
@@ -123,7 +125,7 @@ const Navigation = ({
               ) : (
                 <button
                   onClick={() => {
-                    handleLogout();
+                    logout();
                     handleNavClick("/");
                   }}
                   className="px-6 py-2 rounded-lg border-2 border-red-500 text-red-400 font-semibold hover:bg-red-500 hover:text-gray-900 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/50 flex items-center gap-2"
@@ -211,7 +213,7 @@ const Navigation = ({
           ) : (
             <button
               onClick={() => {
-                handleLogout();
+                logout();
                 handleNavClick("/");
               }}
               className="w-full px-4 py-3 rounded-lg border-2 border-red-500 text-red-400 font-semibold hover:bg-red-500 hover:text-gray-900 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center gap-2"

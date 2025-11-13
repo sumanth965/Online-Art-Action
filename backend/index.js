@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import artworkRoutes from "./routes/artworkRoutes.js";
+import artistRoutes from "./routes/artistRoutes.js"
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -20,6 +21,12 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
 app.use("/api/artworks", artworkRoutes);
+app.use("/api/artists", artistRoutes);
+
+// Default route
+app.get("/", (req, res) => {
+    res.send("🎨 ArtVault API Running...");
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
