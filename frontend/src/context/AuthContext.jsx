@@ -7,29 +7,42 @@ export const AuthProvider = ({ children }) => {
     const [userRole, setUserRole] = useState("Buyer");
 
     useEffect(() => {
-        const token = localStorage.getItem("artistToken");
-        if (token) {
+        const artistToken = localStorage.getItem("artistToken");
+        const adminToken = localStorage.getItem("adminToken");
+
+        if (adminToken) {
+            setIsLoggedIn(true);
+            setUserRole("Admin");
+        } else if (artistToken) {
             setIsLoggedIn(true);
             setUserRole("Artist");
         }
     }, []);
 
-    const login = (role = "Artist", token = "") => {
+    const login = (role = "Buyer", token = "") => {
         setIsLoggedIn(true);
         setUserRole(role);
-        if (token) localStorage.setItem(`${role.toLowerCase()}Token`, token);
+
+        if (role === "Admin") {
+            localStorage.setItem("adminToken", "adminLoggedIn");
+        } else if (role === "Artist") {
+            localStorage.setItem("artistToken", "artistLoggedIn");
+        } else {
+            localStorage.setItem("buyerToken", "buyerLoggedIn");
+        }
     };
 
     const logout = () => {
         localStorage.removeItem("artistToken");
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("buyerToken");
+
         setIsLoggedIn(false);
         setUserRole("Buyer");
     };
 
     return (
-        <AuthContext.Provider
-            value={{ isLoggedIn, userRole, login, logout }}
-        >
+        <AuthContext.Provider value={{ isLoggedIn, userRole, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

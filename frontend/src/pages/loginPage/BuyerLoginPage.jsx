@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { ArrowLeft, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import BuyerAuthForm from "../../components/loginPage/BuyerAuthForm";
+import { useAuth } from "../../context/AuthContext";
 
-const BuyerLoginPage = ({ handleLogin, onBack }) => {
+const BuyerLoginPage = ({ onBack }) => {
+    const { login } = useAuth();  // ⭐ FIXED
     const [isSignUp, setIsSignUp] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState("");
 
     return (
         <section className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black flex items-center justify-center py-12 px-4 relative overflow-hidden">
-            {/* Background blur */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-20 right-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
                 <div className="absolute bottom-20 left-10 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl" />
@@ -44,11 +45,10 @@ const BuyerLoginPage = ({ handleLogin, onBack }) => {
                         </p>
                     </div>
 
-                    {/* Child form */}
                     <BuyerAuthForm
                         isSignUp={isSignUp}
                         setIsSignUp={setIsSignUp}
-                        handleLogin={handleLogin}
+                        handleLogin={login}   // ⭐ FIXED
                         success={success}
                         setSuccess={setSuccess}
                         error={error}

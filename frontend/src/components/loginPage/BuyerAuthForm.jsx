@@ -1,15 +1,5 @@
 import React, { useState } from "react";
-import {
-    Eye,
-    EyeOff,
-    Mail,
-    Lock,
-    UserPlus,
-    LogIn,
-    AlertCircle,
-    CheckCircle,
-    Loader,
-} from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, UserPlus, LogIn, AlertCircle, CheckCircle, Loader, } from "lucide-react";
 
 const BuyerAuthForm = ({
     isSignUp,
@@ -54,14 +44,18 @@ const BuyerAuthForm = ({
         }
 
         setLoading(true);
+
         setTimeout(() => {
             setLoading(false);
             setSuccess(true);
+
             setTimeout(() => {
-                handleLogin("Buyer", { name, email, password, rememberMe });
+                handleLogin("Buyer", "buyerLoggedIn"); // ⭐ CORRECT FOR BUYER ⭐
             }, 1500);
+
         }, 1500);
     };
+
 
     const fillTestCredentials = () => {
         setEmail("buyer@gmail.com");
@@ -100,8 +94,8 @@ const BuyerAuthForm = ({
                             onFocus={() => setFocusedField("name")}
                             onBlur={() => setFocusedField(null)}
                             className={`w-full pl-4 pr-4 py-3 bg-gray-700/20 border rounded-lg text-gray-100 placeholder-gray-500 text-sm transition-all ${focusedField === "name"
-                                    ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
-                                    : "border-gray-600/30"
+                                ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
+                                : "border-gray-600/30"
                                 }`}
                             disabled={loading}
                         />
@@ -123,8 +117,8 @@ const BuyerAuthForm = ({
                             onBlur={() => setFocusedField(null)}
                             placeholder="you@example.com"
                             className={`w-full pl-10 pr-4 py-3 bg-gray-700/20 border rounded-lg text-gray-100 placeholder-gray-500 text-sm transition-all ${focusedField === "email"
-                                    ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
-                                    : "border-gray-600/30"
+                                ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
+                                : "border-gray-600/30"
                                 }`}
                             disabled={loading}
                         />
@@ -146,8 +140,8 @@ const BuyerAuthForm = ({
                             onBlur={() => setFocusedField(null)}
                             placeholder="••••••••"
                             className={`w-full pl-10 pr-10 py-3 bg-gray-700/20 border rounded-lg text-gray-100 placeholder-gray-500 text-sm transition-all ${focusedField === "password"
-                                    ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
-                                    : "border-gray-600/30"
+                                ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
+                                : "border-gray-600/30"
                                 }`}
                             disabled={loading}
                         />
@@ -183,8 +177,8 @@ const BuyerAuthForm = ({
                     type="submit"
                     disabled={loading}
                     className={`w-full py-3 px-4 rounded-lg font-semibold text-sm tracking-wide transition-all duration-300 ${loading
-                            ? "bg-gradient-to-r from-blue-500 to-blue-600 opacity-50 cursor-not-allowed"
-                            : "bg-gradient-to-r from-blue-500 to-blue-600 text-gray-900 shadow-lg shadow-blue-500/20"
+                        ? "bg-gradient-to-r from-blue-500 to-blue-600 opacity-50 cursor-not-allowed"
+                        : "bg-gradient-to-r from-blue-500 to-blue-600 text-gray-900 shadow-lg shadow-blue-500/20"
                         }`}
                 >
                     <div className="flex items-center justify-center">
